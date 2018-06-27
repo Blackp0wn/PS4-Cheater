@@ -16,8 +16,11 @@ int _main(void) {
 
 	int sysUtil = sceKernelLoadStartModule("/system/common/lib/libSceSysUtil.sprx", 0, NULL, 0, 0, 0);
 	RESOLVE(sysUtil, sceSysUtilSendSystemNotificationWithText);
-    int gamePID = findProcess("eboot.bin");//first find eboot before attaching
+        
+	int gamePID = findProcess("eboot.bin");//first find eboot before attaching
 	procAttach(gamePID);//attach to the process
+	
+	
 	u64 gameCheck;
 	procReadBytes(gamePID, 0x00000, (void*)&gameCheck, sizeof(gameCheck));//this reads from a random offset inside an eboot and checks the value
 
